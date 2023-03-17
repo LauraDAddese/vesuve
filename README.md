@@ -14,3 +14,7 @@ Nous souhaitons offrir une expérience intéractive à nos visiteurs sur ce volc
 
 Référence
 Nous n’avons pas trouvé de travaux similaires et c’est pour cela que nous avons dû prendre des données venant de différents supports pour créer notre carte interactive. La carte que nous avons trouvée fait partie de l’histoire mais n’a, d’après nos recherches, pas été exploitée comme nous souhaitons le faire aujourd’hui.  Les données sur les volcans sont souvent très techniques, concernent principalement l’activité sismique et des dates. Nous avons choisi de traiter le sujet de façon différente en nous basant sur cette carte historique. 
+
+Wireframe 
+https://www.figma.com/proto/nI4I7DUnyY8TuFPLXgumLf/wireframe?node-id=1-2&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=1%3A2
+Nous avons réalisé notre wireframe avec l'application Figma. 
