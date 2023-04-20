@@ -1,6 +1,6 @@
 //let donneesgeopgraphiques =  "data/donneesgeopgraphiques.geojson";
 //let data = [donneesgeopgraphiques];
-geoJson.features[0].properties = "changed value";
+geoJson.features[0].properties.tenCity = "changed value";
 
 let map = L.map('map').setView([40.82145693478615, 14.425858810559106], 12.2);
 
@@ -13,7 +13,27 @@ L.tileLayer(
   }
 ).addTo(map);
 
+//tout afficher :
+//L.geoJSON(geoJson).addTo(map)
 
-	 
-L.geoJSON(geoJson).addTo(map);
+const tabCoulees = [];
+
+//on affiche une éruption (un id en particulier) :
+for (let i = 0; i < geoJson.features.length; i++) {
+	geoJson.features.forEach(element => {
+		if (element.properties.id == i) {
+			//tabCoulees[i] = element;
+
+			tabCoulees.push(element);
+		}
+	})
+}
+
+L.geoJSON(tabCoulees[19]).addTo(map);
+
+console.log(tabCoulees[19]);
+
+// if (features[0].properties.id = 2) {
+// 	L.geoJSON(geoJson
+
 
