@@ -1,11 +1,19 @@
-let map = L.map('map').setView([46.7809, 6.6376], 14);
+//let donneesgeopgraphiques =  "data/donneesgeopgraphiques.geojson";
+//let data = [donneesgeopgraphiques];
+geoJson.features[0].properties = "changed value";
 
-let Stamen_Watercolor = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}', {
-	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	subdomains: 'abcd',
-	minZoom: 1,
-	maxZoom: 16,
-}).addTo(map);
+let map = L.map('map').setView([40.82145693478615, 14.425858810559106], 12.2);
 
-L.marker([46.7809, 6.6376]).addTo(map); //pour mettre des marqueurs, des displays cliquables. 
+L.tileLayer(
+  "https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png",
+	{
+    maxZoom: 20,
+    attribution:
+		  '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+  }
+).addTo(map);
+
+
+	 
+L.geoJSON(geoJson).addTo(map);
 
