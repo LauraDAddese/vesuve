@@ -31,8 +31,8 @@ let data = json("data/donneesgeographiques.geojson").then((data) => {
 			d == 12 ? '#88a758' ://1779	 couleur ok
 			d == 13 ? '#57360f' : //1771 couleur ok
 			d == 14 ? '#977f62' : //1694 couleur ok
-			d == 15 ? '##b65e00' : //1805 couleur ok
-			d == 16 ? '##ef9c83' : //1754 couleur ok
+			d == 15 ? '#b65e00' : //1805 couleur ok
+			d == 16 ? '#ef9c83' : //1754 couleur ok
 			d == 17 ? '#91e9f7' : //1786 couleur ok
 			d == 18 ? '#430109' : //1806 couleur ok
 			d == 19 ? '#261838' : // s.d. couleur ok
