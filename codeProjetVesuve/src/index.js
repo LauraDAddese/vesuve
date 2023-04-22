@@ -1,6 +1,7 @@
 import { json } from "d3-fetch";
 
-let randomColor = Math.floor(Math.random() * 16777215).toString(16);
+
+//let randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
 let data = json("data/donneesgeographiques.geojson").then((data) => {
   //afficher la carte :
@@ -16,81 +17,95 @@ let data = json("data/donneesgeographiques.geojson").then((data) => {
 	console.log(data.features[0].properties.id);
 	
 	function getColor(d) {
-		return d == 1 ? '#ff0000' :
-			d == 2 ? '#0000ff' :
-			d == 3 ? '#0000ff' :
-			d == 4 ? '#0000ff' :
-			d == 5 ? '#000000' :
-			d == 6 ? '#0000ff' :
-			d == 7 ? '#0000ff' :
-			d == 8 ? '#0000ff' :
-			d == 9 ? '#000000' :
-			d == 10 ? '#345678' :
-			d == 11 ? '#0000ff' :
-			d == 12 ? '#0000ff' :
-			d == 13 ? '#5400ff' :
-			d == 14 ? '#5000ff' :
-			d == 15 ? '#0000ff' :
-			d == 16 ? '#4000ff' :
-			d == 17 ? '#1000ff' :
-			d == 18 ? '#2000ff' :
-			d == 19 ? '#0000ff' : '#0000ff';
+		return d == 1 ? 'd12d38' : //1701 couleur ok
+			d == 2 ? '#1f78b4' : //1820 couleur ok
+			d == 3 ? '#0002ff' : //1712 couleur ok
+			d == 4 ? '#ff7f00' : //1812 couleur ok
+			d == 5 ? '#e4d97a' : //1813 couleur ok
+			d == 6 ? '#000000' ://existe pas...
+			d == 7 ? '#ff4fa1' : //1810 couleur ok
+			d == 8 ? '#9c264f' : //1717 couleur ok
+			d == 9 ? '#fb99a4' : //1631 couleur ok
+			d == 10 ? '#d8a66a' : //1734 couleur ok
+			d == 11 ? '#ad4832' : //1822 couleur ok
+			d == 12 ? '#88a758' ://1779	 couleur ok
+			d == 13 ? '#57360f' : //1771 couleur ok
+			d == 14 ? '#977f62' : //1694 couleur ok
+			d == 15 ? '##b65e00' : //1805 couleur ok
+			d == 16 ? '##ef9c83' : //1754 couleur ok
+			d == 17 ? '#91e9f7' : //1786 couleur ok
+			d == 18 ? '#430109' : //1806 couleur ok
+			d == 19 ? '#261838' : // s.d. couleur ok
+			'#ffffff';
 	}
 
+//afficher le style de base des features
 	function style(feature) {
 		return {
-			fillColor: getColor(feature.properties.id),	
-			opacity: 1					
+			fillColor: getColor(feature.properties.id),
+			fillOpacity: 0.6,
+			stroke: false,
 		};
 	}
 	L.geoJSON(data, { style: style }).addTo(map);
+
+
+
+	//fonction lors d'action au hover pour  changement d'opacité (ou de couleur à voir)
+function highlightFeature(e) {
+    let layer = e.target;
+
+    layer.setStyle({
+        //color: '#000000',
+		fillOpacity: 1,
+		stroke: true,
+		color: "white",
+		opacity: 0.5,
+		weight: 2,
+
+    });
+
+    layer.bringToFront();
+}
+
+//fonction pour remettre la couleur d'origine
+function resetHighlight(e) {
+    data.resetStyle(e.target);
+}
+
+//fonction pour zoomer sur la zone au clic -- marche pas parce que déjà le popup...
+// function zoomToFeature(e) {
+//     map.fitBounds(e.target.getBounds());
+// }
+
+//fonction pour ajouter les listeners à chaque feature
+data = L.geoJson(data, {
+	style: style,
+	onEachFeature: onEachFeature
+}).addTo(map);
+
+//fonction de listener pour les actions au hover et au mouseout (ou click)
+	
+	//////////////comment faire sur les ID et non pas sur les features ?? ////////////////////////////////////////////
+
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+		click: zoomToFeature,
+		click : layer.bindPopup(feature.properties.annee)
+
+    });
+}
+
+data = L.geoJson(data, {
+    style: style,
+    onEachFeature: onEachFeature
+}).addTo(map);
+	
+	
+	//ajout d'un popup sur chaque feature indiquant la date --> la fonction pète le reste des actions,
+	//je l'ai mise direct dans la fonction onEachFeature plus haut pour l'instant.
+
 });
 
-//   L.geoJSON(data.features, {
-//     style: function (element) {
-//     //  console.log(element.properties.id) //le switch fonctionne mais ne change pas la couleur
-//       switch (element.properties.id) {
-//         case "1":
-//           return { fill: "#ff0000" };
-//         case "2":
-//           return { fill: "#0000ff" };
-//         case "3":
-//           return { fill: "#0000ff" };
-//         case "4":
-//           return { fill: "#0000ff" };
-//         case "5":
-//           return { color: "#0000ff" };
-//         case "6":
-//           return { color: "#0000ff" };
-//         case "7":
-//           return { color: "#0000ff" };
-//         case "8":
-//           return { color: "#0000ff" };
-//         case "9":
-//           return { color: "#000000" };
-//         case "10":
-//           return { color: "#345678" };
-//         case "11":
-//           return { color: "#0000ff" };
-//         case "12":
-//           return { color: "#0000ff" };
-//         case "13":
-//           return { color: "#5400ff" };
-//         case "14":
-//           return { color: "#5000ff" };
-//         case "15":
-//           return { color: "#0000ff" };
-//         case "16":
-//           return { color: "#4000ff" };
-//         case "17":
-//           return { color: "#1000ff" };
-//         case "18":
-//           return { color: "#2000ff" };
-//         case "19":
-//           return {style:"fill:#000000"};
-//       }
-//     },
-//   }).addTo(map);
-
-//   console.log(data);
-// });});
