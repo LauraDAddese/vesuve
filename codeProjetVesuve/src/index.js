@@ -71,7 +71,8 @@ function highlightFeature(e) {
 //fonction pour remettre la couleur d'origine
 function resetHighlight(e) {
     data.resetStyle(e.target);
-}
+	}
+	
 
 //fonction pour zoomer sur la zone au clic -- marche pas parce que déjà le popup...
 // function zoomToFeature(e) {
@@ -92,7 +93,7 @@ function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight,
-		click: zoomToFeature,
+		//click: zoomToFeature,
 		click : layer.bindPopup(feature.properties.annee)
 
     });
