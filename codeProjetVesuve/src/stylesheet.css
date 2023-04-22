@@ -1,5 +1,5 @@
 
 .leaflet-interactive {
-    fill: #ff0000;
     stroke : none;
-}
+    opacity: 1 !important;
+} 
