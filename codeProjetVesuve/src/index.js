@@ -56,7 +56,6 @@ function highlightFeature(e) {
     let layer = e.target;
 
     layer.setStyle({
-        //color: '#000000',
 		fillOpacity: 1,
 		stroke: true,
 		color: "white",
@@ -91,9 +90,8 @@ data = L.geoJson(data, {
 
 function onEachFeature(feature, layer) {
     layer.on({
-        mouseover: highlightFeature,
+        mouseover : highlightFeature,
         mouseout: resetHighlight,
-		//click: zoomToFeature,
 		click : layer.bindPopup(feature.properties.annee)
 
     });

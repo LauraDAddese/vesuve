@@ -4,14 +4,21 @@
 }  */
 
 .frame1 {
-    background: url(../images/vesuve.jpg) no-repeat center center fixed;
+    background-image: url("../../codeProjetVesuve/img/20160403_180659.jpg") !important;
+    width: auto;
+    height: 100%;
+    background-size: 100%;
+}
+
+#scrolly {
+    position: relative;
+    -webkit-overflow-scrolling: touch;
 }
 
 body, html {
     height: 100%;
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: bisque;
 }
 
 .map {
@@ -19,3 +26,4 @@ body, html {
     width: 100%;
     border-radius: 20%;
 }
+
