@@ -2,3 +2,20 @@
 /* .leaflet-interactive {
     stroke : none;
 }  */
+
+.frame1 {
+    background: url(../images/vesuve.jpg) no-repeat center center fixed;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: bisque;
+}
+
+.map {
+    height: 100%;
+    width: 100%;
+    border-radius: 20%;
+}
