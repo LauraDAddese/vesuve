@@ -26,7 +26,7 @@ const createMap = () => {
 
     function getColor(d) {
       return d == 1
-        ? "d12d38" //1701 couleur ok
+        ? "#d12d38" //1701 couleur ok
         : d == 2
         ? "#1f78b4" //1820 couleur ok
         : d == 3
@@ -36,7 +36,7 @@ const createMap = () => {
         : d == 5
         ? "#e4d97a" //1813 couleur ok
         : d == 6
-        ? "#000000" //existe pas...
+        ? "#ffffff" //existe pas...
         : d == 7
         ? "#ff4fa1" //1810 couleur ok
         : d == 8
