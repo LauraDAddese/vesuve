@@ -1,5 +1,6 @@
-import { createMap } from '../src/Map.js';
-import d3 from "d3";
+import { createMap } from "../src/Map.js";
+import * as d3 from "d3";
+import scrollama from "scrollama";
 
 const scrolly = d3.select("#scrolly");
 const figure = scrolly.select("figure");
@@ -56,11 +57,13 @@ function init() {
   // 2. setup the scroller passing options
   // 		this will also initialize trigger observations
   // 3. bind scrollama event handlers (this can be chained like below)
-  scroller.setup({
-    step: "#scrolly article .step",
-    offset: 0.33,
-    debug: false,
-  }).onStepEnter(handleStepEnter);
+  scroller
+    .setup({
+      step: "#scrolly article .step",
+      offset: 0.33,
+      debug: false,
+    })
+    .onStepEnter(handleStepEnter);
 
   // setup resize event
   window.addEventListener("resize", handleResize);

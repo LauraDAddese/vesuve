@@ -137,4 +137,5 @@ const createMap = () => {
   });
 };
 
-export { createMap };
+//export { createMap };
+export default createMap;
