@@ -1,9 +1,11 @@
 //import { createMap } from "../src/Map.js";
 import * as d3 from "d3";
 import scrollama from "scrollama";
+//import { ScrollamaInstance } from "scrollama";
 
 const scrolly = d3.select("#scrolly");
-const graphic = scrolly.select(".scrolly__graphic");
+const container = scrolly.select("#scrolly__graphic");
+const graphic = container.select(".scrolly__graphic");
 const volcan = scrolly.select(".volcan");
 const text = scrolly.select(".scroll__text");
 const step = scrolly.selectAll(".step");
@@ -32,7 +34,7 @@ function handleResize() {
   // make the height of 1/2 viewport
   let volcanHeight = Math.floor(window.innerHeight / 2);
 
-  volcan
+  graphic
     .style("width", `${volcanWidth}px`)
     .style("height", `${volcanHeight}px`);
 
@@ -56,15 +58,15 @@ function handleStepEnter(response) {
 function handleContainerEnter(response) {
   // response = { direction }
   // sticky the graphic
-  volcan.classed("is-fixed", true);
-  volcan.classed("is-bottom", false);
+  graphic.classed("is-fixed", true);
+  graphic.classed("is-bottom", false);
 }
 
 function handleContainerExit(response) {
   // response = { direction }
   // un-sticky the graphic, and pin to top/bottom of container
-  volcan.classed("is-fixed", false);
-  volcan.classed("is-bottom", response.direction === "down");
+  graphic.classed("is-fixed", false);
+  graphic.classed("is-bottom", response.direction === "down");
 
   // add color to current step only
   step.classed("is-active", function (d, i) {
@@ -99,7 +101,8 @@ function init() {
     })
     .onStepEnter(handleStepEnter)
     .onContainerEnter(handleContainerEnter)
-    .onContainerExit(handleContainerExit);
+    .onContainerEnter(handleContainerEnter)
+    .onStepExit(handleContainerExit);
 
   // setup resize event
   window.addEventListener("resize", handleResize);
