@@ -11,22 +11,33 @@
   position: relative;
 }
 
-.scroll__graphic {
-  position: absolute;
+#mon-svg {
+  position: fixed;
+  /* display: block;
+  height: calc(100vh - 100px); */
+  top: 300px;
+  right: 300px;
+  bottom: 0;
+  width: 50%;
+  height: 100%;
+}
+
+/* .scroll__graphic {
+  position: sticky;
   top: 0;
   left: 0;
   bottom: auto;
   width: 100%;
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
-
+  /* transform: translate3d(0, 0, 0);
+}  */
+/* 
 .scroll__graphic.is-fixed {
   position: fixed;
-}
+} */
 
-.scroll__graphic.is-bottom {
+/* .scroll__graphic.is-bottom {
   top: auto;
   bottom: 0;
 }
@@ -38,7 +49,7 @@
   -moz-transform: translateY(-50%, 0);
   -webkit-transform: translateY(-50%, 0);
   transform: translateY(-50%, 0); 
-}
+} 
 
 .scroll__text {
   padding: 0 1 rem;
