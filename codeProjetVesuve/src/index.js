@@ -15,22 +15,19 @@ let scroller = scrollama();
 
 // generic window resize listener event
 function handleResize() {
-  
-    // 1. update height of step elements
-    const stepH = Math.floor(window.innerHeight * 0.75);
-    step.style("height", stepH + "px");
+  // 1. update height of step elements
+  const stepH = Math.floor(window.innerHeight * 0.75);
+  step.style("height", stepH + "px");
 
-    const figureHeight = window.innerHeight / 2;
-    const figureMarginTop = (window.innerHeight - figureHeight) / 2;
+  const figureHeight = window.innerHeight / 2;
+  const figureMarginTop = (window.innerHeight - figureHeight) / 2;
 
-    graphic.style("height", figureHeight + "px")
+  graphic
+    .style("height", figureHeight + "px")
     .style("top", figureMarginTop + "px");
 
-// 3. tell scrollama to update new element dimensions
-    scroller.resize();
-  
-
-
+  // 3. tell scrollama to update new element dimensions
+  scroller.resize();
 }
 
 // scrollama event handlers
@@ -70,23 +67,58 @@ function handleStepEnter(response) {
   // Remove existing SVG element
   d3.select("#mon-svg").select("svg").remove();
 
-  const svg = d3.select("#mon-svg")
+  const svg = d3.select("#mon-svg");
 
   switch (currentIndex) {
     case 0: // first step
-      svg.append("image").attr("xlink:href", "svg/volcan1.svg");
+      //svg.append("image").attr("xlink:href", "svg/volcan1.svg");
+      // Charger le fichier SVG avec d3-fetch
+      d3.svg("svg/volcan1.svg").then(function(data) {
+        // Extraire la balise <svg> du fichier SVG
+        let parser = new DOMParser();
+        let svgString = new XMLSerializer().serializeToString(data.documentElement);
+        let svgDoc = parser.parseFromString(svgString, "image/svg+xml");
+        let svgNode = svgDoc.getElementsByTagName("svg")[0];
+        
+        // Ajouter la balise <svg> extraite dans le document actuel
+        d3.select("#mon-svg").node().appendChild(svgNode);
+      });
       break;
     case 1: // second step
-      d3.select("#mon-svg2").select("svg").remove();
-      svg.append("image").attr("xlink:href", "svg/volcan2.svg");
+    d3.svg("svg/volcan2.svg").then(function(data) {
+      // Extraire la balise <svg> du fichier SVG
+      let parser = new DOMParser();
+      let svgString = new XMLSerializer().serializeToString(data.documentElement);
+      let svgDoc = parser.parseFromString(svgString, "image/svg+xml");
+      let svgNode = svgDoc.getElementsByTagName("svg")[0];
+      
+      // Ajouter la balise <svg> extraite dans le document actuel
+      d3.select("#mon-svg").node().appendChild(svgNode);
+    });
       break;
-    case 2: 
-      d3.select("#mon-svg2").select("svg").remove();
-      svg.append("image").attr("xlink:href", "svg/volcan3.svg");
+    case 2:
+      d3.svg("svg/volcan3.svg").then(function(data) {
+        // Extraire la balise <svg> du fichier SVG
+        let parser = new DOMParser();
+        let svgString = new XMLSerializer().serializeToString(data.documentElement);
+        let svgDoc = parser.parseFromString(svgString, "image/svg+xml");
+        let svgNode = svgDoc.getElementsByTagName("svg")[0];
+        
+        // Ajouter la balise <svg> extraite dans le document actuel
+        d3.select("#mon-svg").node().appendChild(svgNode);
+      });
       break;
     case 3: // second step
-      d3.select("#mon-svg2").select("svg").remove();
-      svg.append("image").attr("xlink:href", "svg/volcan4.svg");
+    d3.svg("svg/volcan4.svg").then(function(data) {
+      // Extraire la balise <svg> du fichier SVG
+      let parser = new DOMParser();
+      let svgString = new XMLSerializer().serializeToString(data.documentElement);
+      let svgDoc = parser.parseFromString(svgString, "image/svg+xml");
+      let svgNode = svgDoc.getElementsByTagName("svg")[0];
+      
+      // Ajouter la balise <svg> extraite dans le document actuel
+      d3.select("#mon-svg").node().appendChild(svgNode);
+    });
       break;
   }
 
