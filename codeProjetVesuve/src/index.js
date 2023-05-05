@@ -1,6 +1,7 @@
 //import { createMap } from "../src/Map.js";
 import * as d3 from "d3";
 import scrollama from "scrollama";
+import createMap  from "./Map";
 //import { ScrollamaInstance } from "scrollama";
 
 const scrolly = d3.select("#scrolly");
@@ -85,6 +86,7 @@ function handleStepEnter(response) {
       });
       break;
     case 1: // second step
+    d3.select("#map").remove();
     d3.svg("svg/volcan2.svg").then(function(data) {
       // Extraire la balise <svg> du fichier SVG
       let parser = new DOMParser();
@@ -97,6 +99,7 @@ function handleStepEnter(response) {
     });
       break;
     case 2:
+      d3.select("#map").remove();
       d3.svg("svg/volcan3.svg").then(function(data) {
         // Extraire la balise <svg> du fichier SVG
         let parser = new DOMParser();
@@ -108,7 +111,8 @@ function handleStepEnter(response) {
         d3.select("#mon-svg").node().appendChild(svgNode);
       });
       break;
-    case 3: // second step
+    case 3: 
+    d3.select("#map").remove();
     d3.svg("svg/volcan4.svg").then(function(data) {
       // Extraire la balise <svg> du fichier SVG
       let parser = new DOMParser();
@@ -119,6 +123,10 @@ function handleStepEnter(response) {
       // Ajouter la balise <svg> extraite dans le document actuel
       d3.select("#mon-svg").node().appendChild(svgNode);
     });
+    case 4:
+      d3.select("#map").remove();
+      d3.select(".scroll__graphic").append("div").attr("id", "map");
+      createMap();
       break;
   }
 
@@ -153,7 +161,7 @@ function init() {
       text: ".scroll__text", // the step container
       step: ".scroll__text .step", // the step elements
       offset: 0.5,
-      debug: true, // this being true is what makes the lines show up
+      debug: false, // this being true is what makes the lines show up
     })
     .onStepEnter(handleStepEnter);
   // .onStepExit(handleStepExit);

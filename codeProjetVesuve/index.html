@@ -13,6 +13,9 @@
       integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
       crossorigin=""
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script
       src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
       integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
@@ -21,18 +24,24 @@
     <script type="module" src="/src/index.js" defer></script>
   </head>
   <body>
+    <header>
+      <h1 id="title">Le Vesuve</h1>
+      <h3 id="subtitle">Un sous-titre ?</h3>
+    </header>
     <section id="scrolly">
       <div class="scroll__graphic">
-        <!--C'est là que vous allez mettre votre svg qui évolue-->
-            <svg id="mon-svg"></svg>
-          
+        <!--C'est là que vous allez mettre votre svg qui évolue 
+        Pour la carte : style="width: 1000px; height: 600px;"-->
+            <svg id="mon-svg">0</svg>
+        <!--C'est là que vous allez mettre votre svg qui évolue -->
+        <div id="map"></div>
         </div>
       </div>
 
       <!-- step-text container-->
       <div class="scroll__text">
         <div class="step" data-step="1">
-          <h1>STEP 1</h1>
+          <h1>Un volcan actif</h1>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
             voluptatum, quibusdam, quia, quae voluptates voluptatem
@@ -42,27 +51,30 @@
           </p>
         </div>
         <div class="step" data-step="2">
-          <h1>STEP 2</h1>
+          <h1>Un risque mesuré ?</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-            voluptatum, quibusdam, quia, quae voluptates voluptatem
-            exercitationem quod voluptatibus quos doloribus quas. Quisquam
-            voluptatum, quibusdam, quia, quae voluptates voluptatem
-            exercitationem quod voluptatibus quos doloribus quas.
+          Habiter près d'un volcan actif est un risque. 
+          Cependant, les habitants peuvent bénéficier de la fertilité des sols volcaniques.
+          L'accès privilégié à la méditerranée, par la bais de Naples, est un autre atout de cette région. 
+          En effet, cela offre un avantage stratégique et commercial qui a permit le développement de la région durant l'antiquité.
           </p>
         </div>
         <div class="step" data-step="3">
-          <h1>STEP 3</h1>
+          <h1>79 ap. J.C. : le drame </h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-            voluptatum, quibusdam, quia, quae voluptates voluptatem
-            exercitationem quod voluptatibus quos doloribus quas. Quisquam
-            voluptatum, quibusdam, quia, quae voluptates voluptatem
-            exercitationem quod voluptatibus quos doloribus quas.
+            L'éruption la plus connue du Vesuve est celle de 79 ap. J.C. qui a détruit les villes de Pompéi et d'Herculanum.
+            3,3 km3 de téphras retombe sur la région et environs 3000 personnes sont tuées.
           </p>
         </div>
         <div class="step" data-step="4">
-          <h1>STEP 4</h1>
+          <h1>1823</h1>
+          <p>
+            En 1823, un cartographe du nom de Jean Auldjo décida de cartographier les éruptions du Vésuve. 
+            Il dessine les coulées de 1631 à 1831. 
+          </p>
+        </div>
+        <div class="step" data-step="5">
+          <h1>C'est la carte</h1>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
             voluptatum, quibusdam, quia, quae voluptates voluptatem
@@ -73,7 +85,8 @@
         </div>
       </div>
     </section>
-
-    <!-- <div id="map" style="width: 1000px; height: 600px;"> </div> -->
+    <footer>
+      Un projet de Marine Hosch et Laura D'Addese, VisualDon, 2023
+    </footer>
   </body>
 </html>
