@@ -23,8 +23,7 @@ const createMap = () => {
     let layer2 = L.tileLayer("/src/carte_coulees_vesuve_1631-1831.png", {
       attribution: "",
       maxZoom: 20,
-      style: "width: 100%; height: 100%;",
-      style: "resize: both: 100%;",
+      style: "width: 100%; height: 100%; resize: both: 100%;",
     }).addTo(map);
 
     //create a Side by Side layer

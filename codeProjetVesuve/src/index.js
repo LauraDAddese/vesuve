@@ -68,66 +68,35 @@ function handleStepEnter(response) {
   // Remove existing SVG element
   d3.select("#mon-svg").select("svg").remove();
 
-  const svg = d3.select("#mon-svg");
-
-  switch (currentIndex) {
-    case 0: // first step
-      // Charger le fichier SVG avec d3-fetch
-      d3.select("#map").remove();
-      d3.svg("svg/volcan1.svg").then(function(data) {
-        // Extraire la balise <svg> du fichier SVG
-        let parser = new DOMParser();
-        let svgString = new XMLSerializer().serializeToString(data.documentElement);
-        let svgDoc = parser.parseFromString(svgString, "image/svg+xml");
-        let svgNode = svgDoc.getElementsByTagName("svg")[0];
-        
-        // Ajouter la balise <svg> extraite dans le document actuel
-        d3.select("#mon-svg").node().appendChild(svgNode);
-      });
-      break;
-    case 1: 
+  function loadSVG(url) {
     d3.select("#map").remove();
-    d3.svg("svg/volcan2.svg").then(function(data) {
-      // Extraire la balise <svg> du fichier SVG
+    d3.svg(url).then(function(data) {
       let parser = new DOMParser();
       let svgString = new XMLSerializer().serializeToString(data.documentElement);
       let svgDoc = parser.parseFromString(svgString, "image/svg+xml");
       let svgNode = svgDoc.getElementsByTagName("svg")[0];
-      
-      // Ajouter la balise <svg> extraite dans le document actuel
       d3.select("#mon-svg").node().appendChild(svgNode);
     });
+  }
+  
+  switch (currentIndex) {
+    case 0:
+      loadSVG("svg/volcan1.svg");
+      break;
+    case 1:
+      loadSVG("svg/volcan2.svg");
       break;
     case 2:
-      d3.select("#map").remove();
-      d3.svg("svg/volcan3.svg").then(function(data) {
-        // Extraire la balise <svg> du fichier SVG
-        let parser = new DOMParser();
-        let svgString = new XMLSerializer().serializeToString(data.documentElement);
-        let svgDoc = parser.parseFromString(svgString, "image/svg+xml");
-        let svgNode = svgDoc.getElementsByTagName("svg")[0];
-        
-        // Ajouter la balise <svg> extraite dans le document actuel
-        d3.select("#mon-svg").node().appendChild(svgNode);
-      });
+      loadSVG("svg/volcan3.svg");
       break;
-    case 3: 
-    d3.select("#map").remove();
-    d3.svg("svg/volcan4.svg").then(function(data) {
-      // Extraire la balise <svg> du fichier SVG
-      let parser = new DOMParser();
-      let svgString = new XMLSerializer().serializeToString(data.documentElement);
-      let svgDoc = parser.parseFromString(svgString, "image/svg+xml");
-      let svgNode = svgDoc.getElementsByTagName("svg")[0];
-      
-      // Ajouter la balise <svg> extraite dans le document actuel
-      d3.select("#mon-svg").node().appendChild(svgNode);
-    });
-    break;
+    case 3:
+      loadSVG("svg/volcan4.svg");
+      break;
     case 4:
-      d3.select("#map").remove();
-      d3.select(".scroll__graphic").append("div").attr("id", "map");
-      createMap();
+      if (d3.select("#map").empty()) {
+        d3.select(".scroll__graphic").append("div").attr("id", "map");
+        createMap();
+      }
       break;
   }
 
