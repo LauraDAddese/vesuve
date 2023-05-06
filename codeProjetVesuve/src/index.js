@@ -72,8 +72,8 @@ function handleStepEnter(response) {
 
   switch (currentIndex) {
     case 0: // first step
-      //svg.append("image").attr("xlink:href", "svg/volcan1.svg");
       // Charger le fichier SVG avec d3-fetch
+      d3.select("#map").remove();
       d3.svg("svg/volcan1.svg").then(function(data) {
         // Extraire la balise <svg> du fichier SVG
         let parser = new DOMParser();
@@ -85,7 +85,7 @@ function handleStepEnter(response) {
         d3.select("#mon-svg").node().appendChild(svgNode);
       });
       break;
-    case 1: // second step
+    case 1: 
     d3.select("#map").remove();
     d3.svg("svg/volcan2.svg").then(function(data) {
       // Extraire la balise <svg> du fichier SVG
@@ -123,6 +123,7 @@ function handleStepEnter(response) {
       // Ajouter la balise <svg> extraite dans le document actuel
       d3.select("#mon-svg").node().appendChild(svgNode);
     });
+    break;
     case 4:
       d3.select("#map").remove();
       d3.select(".scroll__graphic").append("div").attr("id", "map");

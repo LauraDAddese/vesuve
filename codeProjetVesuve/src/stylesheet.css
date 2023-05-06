@@ -4,7 +4,7 @@ body {
 }
 
 header {
-  margin-left: 2rem;
+  margin: 2rem;
 }
 
 #title {
@@ -34,6 +34,15 @@ header {
   bottom: 0;
   width: 72%;
   height: 100%;
+}
+
+/*
+  Je redéfini la taille de la carte sinon on voit pas le footer (pourquoi?)
+  */
+
+#map {
+  width: 72%;
+  height: 90%;
 }
 
 
