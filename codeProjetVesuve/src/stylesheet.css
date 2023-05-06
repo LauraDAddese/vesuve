@@ -112,3 +112,7 @@ svg .scroll__graphic {
   margin: 0 0 5px;
   color: #1e1d1d;
 }
+
+.leaflet-container {
+  overflow: unset;
+}
