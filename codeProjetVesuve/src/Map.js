@@ -1,22 +1,19 @@
 import { json } from "d3-fetch";
 import * as L from "leaflet";
-import "leaflet-side-by-side";
+import "./plugins/leaflet-side-by-side-custom.js";
+import parseGeoraster from "georaster";
+import GeoRasterLayer from "georaster-layer-for-leaflet";
 
 const createMap = () => {
   json("data/donneesgeographiques.geojson").then((data) => {
     //afficher la carte :
-    let map = L.map("map").setView(
-      [40.82145693478615, 14.425858810559106],
-      12.2
-    );
+    let map = L.map("map").setView([40.82145693478615, 14.425858810559106], 12);
 
-    //usage georaster
-    // let parse_georaster = require("georaster");
-    // let GeoRasterLayer = require("georaster-layer-for-leaflet");
-    new GeoRasterLayer({ georaster }).addTo(map);
+    map.createPane("left");
+    map.createPane("right");
 
     //j'ajoute un premier layer (carte actuelle)
-    let layer1 = L.tileLayer(
+    let basemap = L.tileLayer(
       "https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png",
       {
         maxZoom: 20,
@@ -25,39 +22,29 @@ const createMap = () => {
       }
     ).addTo(map);
 
-    //ajouter la deuxième carte pour le curseur(ancienne carte)
-    //let layer2 = L.tileLayer("/src/volcanAncien.tif").addTo(map); //ancien code
-
-    let url_to_geotiff = "/src/volcanAncien.tif";
-
-    fetch(url_to_geotiff)
+    // geotiff layer
+    const url_to_geotiff_file = "data/raster/carte_historique.tiff";
+    fetch(url_to_geotiff_file)
       .then((response) => response.arrayBuffer())
       .then((arrayBuffer) => {
-        parse_georaster(arrayBuffer).then((georaster) => {
-          console.log("georaster:", georaster);
+        parseGeoraster(arrayBuffer).then((georaster) => {
+          let vectorLayer = L.geoJson(data, {
+            style: style,
+            onEachFeature: onEachFeature,
+          }).addTo(map);
 
-          /*
-          GeoRasterLayer is an extension of GridLayer,
-          which means can use GridLayer options like opacity.
-
-          Just make sure to include the georaster option!
-
-          Optionally set the pixelValuesToColorFn function option to customize
-          how values for a pixel are translated to a color.
-
-          http://leafletjs.com/reference-1.2.0.html#gridlayer
-      */
-          let layer2 = new GeoRasterLayer({
+          let historicMap = new GeoRasterLayer({
             georaster: georaster,
-          });
-          layer2.addTo(map);
+            opacity: 0.7,
+            resolution: 200, // optional parameter for adjusting display resolution
+            pane: "right",
+          }).addTo(map);
 
-          map.fitBounds(layer2.getBounds());
+          L.control
+            .sideBySide([], [basemap, vectorLayer, historicMap])
+            .addTo(map);
         });
       });
-
-    //create a Side by Side layer
-    L.control.sideBySide(layer1, layer2).addTo(map);
 
     //fixer le zoom
     function fixerZoom(map, level) {
@@ -118,7 +105,6 @@ const createMap = () => {
         stroke: false,
       };
     }
-    L.geoJSON(data, { style: style }).addTo(map);
 
     //ajout de légende
     let info = L.control();
@@ -170,17 +156,6 @@ const createMap = () => {
       info.update();
     }
 
-    //fonction pour zoomer sur la zone au clic -- marche pas parce que déjà le popup...
-    // function zoomToFeature(e) {
-    //     map.fitBounds(e.target.getBounds());
-    // }
-
-    //fonction pour ajouter les listeners à chaque feature
-    data = L.geoJson(data, {
-      style: style,
-      onEachFeature: onEachFeature,
-    }).addTo(map);
-
     //fonction de listener pour les actions au hover et au mouseout (ou click)
     function onEachFeature(feature, layer) {
       layer.on({
@@ -188,11 +163,6 @@ const createMap = () => {
         mouseout: resetHighlight,
       });
     }
-
-    data = L.geoJson(data, {
-      style: style,
-      onEachFeature: onEachFeature,
-    }).addTo(map);
   });
 };
 
