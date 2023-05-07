@@ -4,6 +4,7 @@ import scrollama from "scrollama";
 import createMap  from "./Map";
 //import { ScrollamaInstance } from "scrollama";
 
+
 const scrolly = d3.select("#scrolly");
 const graphic = scrolly.select(".scroll__graphic");
 // const volcan = scrolly.select(".volcan");

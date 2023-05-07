@@ -1,33 +1,63 @@
 import { json } from "d3-fetch";
 import * as L from "leaflet";
-import "leaflet-side-by-side";
+import "./plugins/leaflet-side-by-side-custom.js";
+import parseGeoraster from 'georaster';
+import GeoRasterLayer from 'georaster-layer-for-leaflet'
 
 const createMap = () => {
   json("data/donneesgeographiques.geojson").then((data) => {
     //afficher la carte :
     let map = L.map("map").setView(
       [40.82145693478615, 14.425858810559106],
-      12.2
+      12
     );
+
+    map.createPane('left');
+    map.createPane('right');
+
     //j'ajoute un premier layer (carte actuelle)
-    let layer1 = L.tileLayer(
+    let basemap = L.tileLayer(
       "https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png",
       {
         maxZoom: 20,
         attribution:
           '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+
       }
     ).addTo(map);
 
-    //ajouter la deuxième carte pour le curseur(ancienne carte)
-    let layer2 = L.tileLayer("/src/carte_coulees_vesuve_1631-1831.png", {
-      attribution: "",
-      maxZoom: 20,
-      style: "width: 100%; height: 100%; resize: both: 100%;",
+
+
+
+
+    // geotiff layer
+    const url_to_geotiff_file = 'data/raster/carte_historique.tiff';
+    fetch(url_to_geotiff_file)
+        .then(response => response.arrayBuffer())
+        .then(arrayBuffer => {
+          parseGeoraster(arrayBuffer)
+              .then(georaster => {
+
+              let historicMap= new GeoRasterLayer({
+                      georaster: georaster,
+                      opacity: 0.7,
+                      resolution: 200, // optional parameter for adjusting display resolution
+                      pane: 'right'
+                    }).addTo(map);
+
+
+                L.control.sideBySide([], [basemap, historicMap]).addTo(map);
+
+
+              });
+        })
+
+    let vectorLayer = L.geoJson(data, {
+      style: style,
+      onEachFeature: onEachFeature,
+
     }).addTo(map);
 
-    //create a Side by Side layer
-    L.control.sideBySide(layer1, layer2).addTo(map);
 
     //fixer le zoom
     function fixerZoom(map, level) {
@@ -36,7 +66,9 @@ const createMap = () => {
       +map.setZoom(level);
     }
 
+
     fixerZoom(map, 12.5);
+
 
     function getColor(d) {
       return d == 1
@@ -88,7 +120,7 @@ const createMap = () => {
         stroke: false,
       };
     }
-    L.geoJSON(data, { style: style }).addTo(map);
+
 
     //ajout de légende
     let info = L.control();
@@ -140,16 +172,6 @@ const createMap = () => {
       info.update();
     }
 
-    //fonction pour zoomer sur la zone au clic -- marche pas parce que déjà le popup...
-    // function zoomToFeature(e) {
-    //     map.fitBounds(e.target.getBounds());
-    // }
-
-    //fonction pour ajouter les listeners à chaque feature
-    data = L.geoJson(data, {
-      style: style,
-      onEachFeature: onEachFeature,
-    }).addTo(map);
 
     //fonction de listener pour les actions au hover et au mouseout (ou click)
     function onEachFeature(feature, layer) {
@@ -159,10 +181,7 @@ const createMap = () => {
       });
     }
 
-    data = L.geoJson(data, {
-      style: style,
-      onEachFeature: onEachFeature,
-    }).addTo(map);
+
   });
 };
 
