@@ -9,6 +9,12 @@ const createMap = () => {
       [40.82145693478615, 14.425858810559106],
       12.2
     );
+
+    //usage georaster
+    // let parse_georaster = require("georaster");
+    // let GeoRasterLayer = require("georaster-layer-for-leaflet");
+    new GeoRasterLayer({ georaster }).addTo(map);
+
     //j'ajoute un premier layer (carte actuelle)
     let layer1 = L.tileLayer(
       "https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png",
@@ -20,11 +26,35 @@ const createMap = () => {
     ).addTo(map);
 
     //ajouter la deuxième carte pour le curseur(ancienne carte)
-    let layer2 = L.tileLayer("/src/carte_coulees_vesuve_1631-1831.png", {
-      attribution: "",
-      maxZoom: 20,
-      style: "width: 100%; height: 100%; resize: both: 100%;",
-    }).addTo(map);
+    //let layer2 = L.tileLayer("/src/volcanAncien.tif").addTo(map); //ancien code
+
+    let url_to_geotiff = "/src/volcanAncien.tif";
+
+    fetch(url_to_geotiff)
+      .then((response) => response.arrayBuffer())
+      .then((arrayBuffer) => {
+        parse_georaster(arrayBuffer).then((georaster) => {
+          console.log("georaster:", georaster);
+
+          /*
+          GeoRasterLayer is an extension of GridLayer,
+          which means can use GridLayer options like opacity.
+
+          Just make sure to include the georaster option!
+
+          Optionally set the pixelValuesToColorFn function option to customize
+          how values for a pixel are translated to a color.
+
+          http://leafletjs.com/reference-1.2.0.html#gridlayer
+      */
+          let layer2 = new GeoRasterLayer({
+            georaster: georaster,
+          });
+          layer2.addTo(map);
+
+          map.fitBounds(layer2.getBounds());
+        });
+      });
 
     //create a Side by Side layer
     L.control.sideBySide(layer1, layer2).addTo(map);
