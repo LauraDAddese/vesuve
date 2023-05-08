@@ -14,11 +14,12 @@ const createMap = () => {
 
     //j'ajoute un premier layer (carte actuelle)
     let basemap = L.tileLayer(
-      "https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png",
+      "     https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=9a22e6ca54f54449980daee2749bfe1c",
       {
         maxZoom: 20,
         attribution:
           '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+        apiKey: "9a22e6ca54f54449980daee2749bfe1c",
       }
     ).addTo(map);
 
