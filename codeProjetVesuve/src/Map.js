@@ -32,7 +32,9 @@ const createMap = () => {
           let vectorLayer = L.geoJson(data, {
             style: style,
             onEachFeature: onEachFeature,
-          }).addTo(map);
+          })
+            .addTo(map)
+            .bringToFront();
 
           let historicMap = new GeoRasterLayer({
             georaster: georaster,
@@ -107,22 +109,6 @@ const createMap = () => {
       };
     }
 
-    //ajout de légende
-    let info = L.control();
-    info.onAdd = function (map) {
-      this._div = L.DomUtil.create("div", "info");
-      this.update(map);
-      return this._div;
-    };
-
-    info.update = function (props) {
-      this._div.innerHTML =
-        "<h4>Année de l'éruption</h4>" +
-        (props ? "<b>" + props.annee + "</b><br />" : "Survolez une zone");
-    };
-
-    info.addTo(map);
-
     //fonction lors d'action au hover pour  changement d'opacité (ou de couleur à voir)
     function highlightFeature(e) {
       const layer = e.target;
@@ -141,7 +127,27 @@ const createMap = () => {
       });
 
       layer.bringToFront();
-      info.update(layer.feature.properties);
+
+      // ajout d'un popup au hover avec l'année de la coulée
+      function bindPopup(feature, layer) {
+        let popupContent = `${feature.properties.annee}`;
+      
+        layer.bindPopup(popupContent);
+
+        layer.on("mouseover", function (e) {
+          this.openPopup(e.latlng);
+        });
+        layer.on("mouseout", function (e) {
+          this.closePopup();
+        });
+      }
+
+      // ajout d'un popup au hover avec l'année de la coulée
+      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.on("mousemove", function (e) {
+          layer.bindPopup(layer.feature.properties.annee).openPopup();
+        });
+      }
     }
 
     //fonction pour remettre la couleur d'origine
@@ -154,7 +160,6 @@ const createMap = () => {
           el.style.stroke = "";
         }
       });
-      info.update();
     }
 
     //fonction de listener pour les actions au hover et au mouseout (ou click)
