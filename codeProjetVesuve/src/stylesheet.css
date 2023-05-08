@@ -9,6 +9,7 @@ header {
 
 #title {
   font-size: 3rem;
+  position: fixed;
 }
 
 
@@ -64,6 +65,7 @@ header {
   position: relative;
 			padding: 0 1rem;
 			max-width: 20rem;
+      margin-top: 100px;
 }
 
 svg .scroll__graphic {
@@ -89,11 +91,11 @@ svg .scroll__graphic {
 }
 
 .step:last-child {
-  margin-bottom: 0;
+  margin-bottom: 40;
 }
 
 .step.is-active {
-  
+  margin-top: 100px;
 }
 
 .step p {

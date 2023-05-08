@@ -1,7 +1,8 @@
 //import { createMap } from "../src/Map.js";
 import * as d3 from "d3";
 import scrollama from "scrollama";
-import createMap  from "./Map";
+import createMap from "./Map";
+import { circle } from "leaflet";
 //import { ScrollamaInstance } from "scrollama";
 
 const scrolly = d3.select("#scrolly");
@@ -27,7 +28,6 @@ function handleResize() {
     .style("height", figureHeight + "px")
     .style("top", figureMarginTop + "px");
 
-
   // 3. tell scrollama to update new element dimensions
   scroller.resize();
 }
@@ -39,34 +39,49 @@ function handleStepEnter(response) {
   });
 
   // Remove existing SVG element
-  d3.select("#mon-svg").select("svg").remove();
+  d3.selectAll("#mon-svg").select("svg").remove();
 
   function loadSVG(url) {
     d3.select("#map").remove();
-    d3.svg(url).then(function(data) {
+    d3.svg(url).then(function (data) {
       let parser = new DOMParser();
-      let svgString = new XMLSerializer().serializeToString(data.documentElement);
+      let svgString = new XMLSerializer().serializeToString(
+        data.documentElement
+      );
       let svgDoc = parser.parseFromString(svgString, "image/svg+xml");
       let svgNode = svgDoc.getElementsByTagName("svg")[0];
       d3.select("#mon-svg").node().appendChild(svgNode);
     });
   }
   const fond = loadSVG("svg/fond.svg");
-  
+
+  //essai de créer la légende avec un path et un cercle sur le svg
+  let groupe = d3.select("#mon-svg").append("g");
+  let circle = groupe
+    .append("circle")
+    .attr("cx", 300)
+    .attr("cy", 700)
+    .attr("r", 10)
+    .on("click", function () {})
+    .bringToFront();
+
   switch (currentIndex) {
     case 0:
       loadSVG("svg/fond.svg");
       break;
     case 1:
-      loadSVG("svg/volcan2.svg");
+      d3.select("#mon-svg").append("circle").bringToFront();
       break;
     case 2:
-      loadSVG("svg/volcan3.svg");
+      loadSVG("svg/volcan2.svg");
       break;
     case 3:
-      loadSVG("svg/volcan4.svg");
+      loadSVG("svg/volcan3.svg");
       break;
     case 4:
+      loadSVG("svg/volcan4.svg");
+      break;
+    case 5:
       if (d3.select("#map").empty()) {
         d3.select(".scroll__graphic").append("div").attr("id", "map");
         createMap();
@@ -82,8 +97,6 @@ function handleStepExit(response) {
   // response = { element, direction, index }
   let currentIndex = response.index;
   let currentDirection = response.direction;
-
-  
 }
 
 function init() {
@@ -111,5 +124,3 @@ function init() {
 
 // kick things off
 init();
-
-
