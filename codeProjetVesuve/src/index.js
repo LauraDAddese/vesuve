@@ -27,38 +27,11 @@ function handleResize() {
     .style("height", figureHeight + "px")
     .style("top", figureMarginTop + "px");
 
+
   // 3. tell scrollama to update new element dimensions
   scroller.resize();
 }
 
-// scrollama event handlers
-// function handleStepEnter(response) {
-//   // response = { element, direction, index }
-//   let currentIndex = response.index;
-//   let currentDirection = response.direction;
-
-//   // fade in current step
-//   step.classed("is-active", function (d, i) {
-//     return i === currentIndex;
-//   });
-
-//   const svg = d3.select("#mon-svg").append("svg");
-//       // .attr("width", 200)
-//       // .attr("height", 200);
-
-//   switch (currentIndex) {
-//     case 0: // first step
-//       // Création de l'élément SVG
-//       svg.select("#mon-svg").remove();
-
-//       svg.append("image").attr("xlink:href", "svg/volcan1.svg");
-
-//       break;
-//     case 1: // second step
-//     svg.select("#mon-svg2").remove();
-//     svg.append("image").attr("xlink:href", "svg/volcan2.svg");
-//       break;
-//   }
 function handleStepEnter(response) {
   let currentIndex = response.index;
   step.classed("is-active", function (d, i) {
@@ -78,10 +51,11 @@ function handleStepEnter(response) {
       d3.select("#mon-svg").node().appendChild(svgNode);
     });
   }
+  const fond = loadSVG("svg/fond.svg");
   
   switch (currentIndex) {
     case 0:
-      loadSVG("svg/volcan1.svg");
+      loadSVG("svg/fond.svg");
       break;
     case 1:
       loadSVG("svg/volcan2.svg");
@@ -104,18 +78,13 @@ function handleStepEnter(response) {
   let stepData = step.attr("data-step");
 }
 
-// function handleStepExit(response) {
-//   // response = { element, direction, index }
-//   let currentIndex = response.index;
-//   let currentDirection = response.direction;
+function handleStepExit(response) {
+  // response = { element, direction, index }
+  let currentIndex = response.index;
+  let currentDirection = response.direction;
 
-//     if (response.index === 1) { // remove SVG container and image from second step
-//       d3.select("#my-svg-2").remove();
-//     }
-//     else if (response.index === 2) { // remove SVG container and image from third step
-//       d3.select("#my-svg-3").remove();
-//   };
-// }
+  
+}
 
 function init() {
   // 1. force a resize on load to ensure proper dimensions are sent to scrollama
@@ -133,8 +102,8 @@ function init() {
       offset: 0.5,
       debug: false, // this being true is what makes the lines show up
     })
-    .onStepEnter(handleStepEnter);
-  // .onStepExit(handleStepExit);
+    .onStepEnter(handleStepEnter)
+    .onStepExit(handleStepExit);
 
   // setup resize event
   window.addEventListener("resize", handleResize);

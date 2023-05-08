@@ -11,6 +11,7 @@ header {
   font-size: 3rem;
 }
 
+
 #scrolly {
   position: relative;
 			display: -webkit-box;
@@ -32,8 +33,10 @@ header {
   top: 50px;
   right: center;
   bottom: 0;
-  width: 72%;
+  width: 65%;
   height: 100%;
+  transition: ease-in-out 1s;
+
 }
 
 /*
@@ -45,17 +48,15 @@ header {
   height: 90%;
 }
 
-
-
 .scroll_graphic {
   position: -webkit-sticky;
   position: sticky;
   width: 100%;
   margin: 0;
-  -webkit-transform: translate3d(0, 0, 0);
+  /* -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  background-color: #8a8a8a;
+  transform: translate3d(0, 0, 0); */
+  /* background-color: #8a8a8a; */
   z-index: 0;
 }
 
