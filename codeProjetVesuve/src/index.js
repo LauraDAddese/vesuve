@@ -56,32 +56,29 @@ function handleStepEnter(response) {
   const fond = loadSVG("svg/fond.svg");
 
   //essai de créer la légende avec un path et un cercle sur le svg
-  let groupe = d3.select("#mon-svg").append("g");
-  let circle = groupe
-    .append("circle")
-    .attr("cx", 300)
-    .attr("cy", 700)
-    .attr("r", 10)
-    .on("click", function () {})
-    .bringToFront();
+  // let groupe = d3.select("#mon-svg").append("g");
+  // let circle = groupe
+  //   .append("circle")
+  //   .attr("cx", 300)
+  //   .attr("cy", 700)
+  //   .attr("r", 10)
+  //   .on("click", function () {})
+  //   .bringToFront();
 
   switch (currentIndex) {
     case 0:
       loadSVG("svg/fond.svg");
       break;
     case 1:
-      d3.select("#mon-svg").append("circle").bringToFront();
-      break;
-    case 2:
       loadSVG("svg/volcan2.svg");
       break;
-    case 3:
+    case 2:
       loadSVG("svg/volcan3.svg");
       break;
-    case 4:
+    case 3:
       loadSVG("svg/volcan4.svg");
       break;
-    case 5:
+    case 4:
       if (d3.select("#map").empty()) {
         d3.select(".scroll__graphic").append("div").attr("id", "map");
         createMap();
