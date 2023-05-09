@@ -1,15 +1,19 @@
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #f3f3f3;
+  background-color: #fcfaea;
 }
 
 header {
-  margin: 2rem;
+  margin: auto;
+  width: 100%;
+  height: fit-content;
+  padding: 0;
+  position: fixed;
 }
 
 #title {
   font-size: 3rem;
-  position: fixed;
+  margin-left: 3rem;
 }
 
 
@@ -46,7 +50,10 @@ header {
 
 #map {
   width: 72%;
-  height: 90%;
+  height: 95%;
+  bottom: fixed;
+  top: 0;
+  position: center;
 }
 
 .scroll_graphic {
@@ -85,10 +92,6 @@ svg .scroll__graphic {
 /*
   css pour le texte sur le côté
   */
-
-.step {
-  
-}
 
 .step:last-child {
   margin-bottom: 40;

@@ -79,6 +79,7 @@ function handleStepEnter(response) {
       loadSVG("svg/volcan4.svg");
       break;
     case 4:
+      d3.selectAll("#mon-svg").selectChildren().remove();
       if (d3.select("#map").empty()) {
         d3.select(".scroll__graphic").append("div").attr("id", "map");
         createMap();
