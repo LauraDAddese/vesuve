@@ -1,11 +1,11 @@
-import { json } from "d3-fetch";
+import * as d3 from "d3";
 import * as L from "leaflet";
 import "./plugins/leaflet-side-by-side-custom.js";
 import parseGeoraster from "georaster";
 import GeoRasterLayer from "georaster-layer-for-leaflet";
 
 const createMap = () => {
-  json("data/donneesgeographiques.geojson").then((data) => {
+  d3.json("/data/donneesgeographiques.geojson").then((data) => {
     //afficher la carte :
     let map = L.map("map").setView([40.82145693478615, 14.425858810559106], 12);
 
@@ -14,7 +14,7 @@ const createMap = () => {
 
     //j'ajoute un premier layer (carte actuelle)
     let basemap = L.tileLayer(
-      "     https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=9a22e6ca54f54449980daee2749bfe1c",
+      "https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=9a22e6ca54f54449980daee2749bfe1c",
       {
         maxZoom: 20,
         attribution:
@@ -24,7 +24,7 @@ const createMap = () => {
     ).addTo(map);
 
     // geotiff layer
-    const url_to_geotiff_file = "data/raster/carte_historique.tiff";
+    const url_to_geotiff_file = "/data/raster/carte_historique.tiff";
     fetch(url_to_geotiff_file)
       .then((response) => response.arrayBuffer())
       .then((arrayBuffer) => {

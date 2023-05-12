@@ -53,7 +53,7 @@ function handleStepEnter(response) {
       d3.select("#mon-svg").node().appendChild(svgNode);
     });
   }
-  const fond = loadSVG("svg/fond.svg");
+  const fond = loadSVG("/svg/fond.svg");
 
   //essai de créer la légende avec un path et un cercle sur le svg
   // let groupe = d3.select("#mon-svg").append("g");
@@ -67,16 +67,16 @@ function handleStepEnter(response) {
 
   switch (currentIndex) {
     case 0:
-      loadSVG("svg/fond.svg");
+      loadSVG("/svg/fond.svg");
       break;
     case 1:
-      loadSVG("svg/volcan2.svg");
+      loadSVG("/svg/volcan2.svg");
       break;
     case 2:
-      loadSVG("svg/volcan3.svg");
+      loadSVG("/svg/volcan3.svg");
       break;
     case 3:
-      loadSVG("svg/volcan4.svg");
+      loadSVG("/svg/volcan4.svg");
       break;
     case 4:
       d3.selectAll("#mon-svg").selectChildren().remove();
