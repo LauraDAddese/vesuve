@@ -53,7 +53,10 @@ function handleStepEnter(response) {
       d3.select("#mon-svg").node().appendChild(svgNode);
     });
   }
-  const fond = loadSVG("/svg/fond.svg");
+  
+  //pour le fond
+  //d3.select(".scroll__graphic").append("img").attr("src", "/svg/fond.png")
+  loadSVG("/svg/fond.svg");
 
   //essai de créer la légende avec un path et un cercle sur le svg
   // let groupe = d3.select("#mon-svg").append("g");
@@ -67,7 +70,7 @@ function handleStepEnter(response) {
 
   switch (currentIndex) {
     case 0:
-      loadSVG("/svg/fond.svg");
+      //rien parce que c'est le fond qui est déjà là
       break;
     case 1:
       loadSVG("/svg/volcan2.svg");
